@@ -1,0 +1,63 @@
+[
+	{
+		"Id": 1,
+        "Latitude": -19.9412825,
+        "Longitude": -43.9373681,
+		"Descricao": "<br>Endereço: Rua Major Lopes, 55</br><br>Dias disponíveis: Segunda à Sábado</br><br>Segurança: Porteiro 24h, câmeras de segurança</br><br>Localização da vaga: Segundo andar de garagem - G2</br><br>Vaga mensal</br><br>Valor: R$180,00</br>"
+    },
+    {
+		"Id": 2,
+        "Latitude": -19.926894,
+        "Longitude": -43.9477945,
+		"Descricao": "Vaga Alugada"
+    },
+    {
+		"Id": 3,
+        "Latitude": -19.9570933,
+        "Longitude": -43.9578957,
+		"Descricao": "Vaga alugada"
+    },
+  	{
+		"Id": 4,
+    	"Latitude": -19.9308685,
+    	"Longitude": -43.9324138,
+		"Descricao": "Vaga Alugada"
+  	},
+  	{
+		"Id": 5,
+    	"Latitude": -19.9371018,
+    	"Longitude": -43.9420807,
+		"Descricao": "Vaga Alugada"
+  	},
+  	{
+		"Id": 6,
+    	"Latitude": -19.9427624,
+    	"Longitude": -43.9169789,
+		"Descricao": "Vaga Alugada"
+		
+  	},
+  	{
+		"Id": 7,
+    	"Latitude": -19.9331624,
+    	"Longitude": -43.9594496,
+		"Descricao": "Vaga Alugada"
+  	},
+  	{
+		"Id": 8,
+    	"Latitude": -19.9344737,
+    	"Longitude": -43.9579883,
+		"Descricao": "Vaga Alugada"
+  	},
+  	{
+		"Id": 9,
+    	"Latitude": -19.936816,
+    	"Longitude": -43.958494,
+		"Descricao": "Vaga Alugada"
+  	},
+  	{
+		"Id": 10,
+    	"Latitude": -19.9339998,
+    	"Longitude": -43.9426,
+		"Descricao": "Vaga Alugada"
+  	}
+]
