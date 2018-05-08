@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>ZuliApp SearchBox</title>
+    <style>
+
+      #map {
+        height: 100%;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map"></div>
+    <script>
+
+    function initialize() {
+      initMap();
+      initAutocomplete();
+    }
+
+    function initMap() {
+
+		
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: new google.maps.LatLng(-19.9166813, -43.9344931),
+        mapTypeId: 'roadmap'
+      });
+
+      var iconBase = 'http://www.techviking.com.br/zuli/';
+      var icons = {
+        parking: {
+          icon: iconBase + 'parking_lot_maps.png'
+        },
+        library: {
+          icon: iconBase + 'library_maps.png'
+        },
+        info: {
+          icon: iconBase + 'info-i_maps.png'
+        }
+      };
+
+		
+		
+      var features = [
+        {
+          position: new google.maps.LatLng(-19.9412825, -43.9373681),
+          type: 'parking'
+			
+			
+        }, {
+          position: new google.maps.LatLng(-19.926894, -43.9477945),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9570933, -43.9578957),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9308685, -43.9324138),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9371018, -43.9420807),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9427448, -43.9169881),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9331624, -43.9594496),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9344737, -43.9579883),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-19.9339998, -43.9426),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.91666, 151.23468),
+          type: 'info'
+        }, {
+          position: new google.maps.LatLng(-33.916988, 151.233640),
+          type: 'info'
+        }, {
+          position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
+          type: 'parking'
+        }, {
+          position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+          type: 'library'
+        }
+      ];
+
+      // Create markers.
+      features.forEach(function(feature) {
+        var marker = new google.maps.Marker({
+          position: feature.position,
+          icon: icons[feature.type].icon,
+          map: map
+
+        });
+      });
+    }
+
+
+      function initAutocomplete() {
+        
+		  
+		  
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+		  
+		  
+		   
+		  
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADaxK1v9FnkZx3AHVStZJ4VdlOIX6DYKg
+&libraries=places&callback=initialize"
+         async defer></script>
+  </body>
+</html>
